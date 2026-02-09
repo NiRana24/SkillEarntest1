@@ -17,16 +17,12 @@
         .wheel { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 4s cubic-bezier(0.17, 0.67, 0.08, 0.99); background: conic-gradient(#ef4444 0deg 60deg, #f59e0b 60deg 120deg, #10b981 120deg 180deg, #3b82f6 180deg 240deg, #8b5cf6 240deg 300deg, #ec4899 300deg 360deg); }
         .arrow { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid #1f2937; z-index: 10; }
         
-        /* Loader */
+        /* Custom Loader */
         .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* Styles */
+        /* Lottery Card */
         .lottery-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-        .buy-card { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 15px; text-align: center; transition: 0.2s; cursor: pointer; position: relative; overflow: hidden; }
-        .buy-card:active { transform: scale(0.95); border-color: #3b82f6; }
-        .social-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; padding: 10px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: 0.2s; }
-        .social-btn:active { transform: scale(0.95); }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -39,37 +35,37 @@
     <div id="authSection" class="fixed inset-0 bg-white hidden flex-col justify-center px-6 overflow-y-auto z-50">
         <div class="text-center mb-8">
             <h1 class="text-3xl font-bold text-blue-600">SkillPlay BD</h1>
-            <p class="text-gray-500 text-sm mt-1">Login or Signup to continue</p>
+            <p class="text-gray-500 text-sm mt-1">Login to continue</p>
         </div>
         <div class="space-y-4">
-            <input type="text" id="authName" placeholder="Full Name (For Signup)" class="w-full bg-gray-50 px-4 py-3 rounded-lg border focus:border-blue-500 outline-none transition">
-            <input type="number" id="authPhone" placeholder="Mobile Number (e.g. 017xxxxx)" class="w-full bg-gray-50 px-4 py-3 rounded-lg border focus:border-blue-500 outline-none transition">
-            <input type="email" id="authEmail" placeholder="Email Address" class="w-full bg-gray-50 px-4 py-3 rounded-lg border focus:border-blue-500 outline-none transition">
-            <input type="password" id="authPass" placeholder="Password (Min 6 chars)" class="w-full bg-gray-50 px-4 py-3 rounded-lg border focus:border-blue-500 outline-none transition">
+            <input type="text" id="authName" placeholder="Full Name (For Signup)" class="w-full bg-gray-50 px-4 py-3 rounded-lg border focus:border-blue-500 outline-none">
+            <input type="number" id="authPhone" placeholder="Mobile Number (e.g. 017xxxxx)" class="w-full bg-gray-50 px-4 py-3 rounded-lg border focus:border-blue-500 outline-none">
+            <input type="email" id="authEmail" placeholder="Email Address" class="w-full bg-gray-50 px-4 py-3 rounded-lg border focus:border-blue-500 outline-none">
+            <input type="password" id="authPass" placeholder="Password (Min 6 chars)" class="w-full bg-gray-50 px-4 py-3 rounded-lg border focus:border-blue-500 outline-none">
             
-            <button onclick="handleAuth('login')" id="btnLogin" class="w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold shadow-lg text-lg hover:bg-blue-700 transition">Login</button>
-            <button onclick="handleAuth('signup')" id="btnSignup" class="w-full border border-blue-600 text-blue-600 py-3.5 rounded-xl font-bold hover:bg-blue-50 transition">Create Account</button>
+            <button onclick="handleAuth('login')" class="w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold shadow-lg text-lg">Login</button>
+            <button onclick="handleAuth('signup')" class="w-full border border-blue-600 text-blue-600 py-3.5 rounded-xl font-bold">Create Account</button>
         </div>
-        <p id="authError" class="text-center text-red-500 text-sm mt-4 font-bold"></p>
+        <p id="authError" class="text-center text-red-500 text-xs mt-4"></p>
     </div>
 
     <div id="appSection" class="hidden min-h-screen pb-24 relative z-40">
         
         <header class="bg-blue-600 text-white p-4 sticky top-0 z-30 shadow-md flex justify-between items-center">
-            <div class="flex items-center gap-3" onclick="openProfileModal()">
-                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center cursor-pointer">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                     <i class="fas fa-user text-lg"></i>
                 </div>
                 <div>
-                    <h2 class="font-bold text-base" id="headerName">User</h2>
-                    <div class="text-[10px] bg-green-400 text-blue-900 font-bold px-2 rounded-full inline-block">Tap to view</div>
+                    <h2 class="font-bold text-base" id="userName">User</h2>
+                    <div class="text-[10px] bg-green-400 text-blue-900 font-bold px-2 rounded-full inline-block">Active</div>
                 </div>
             </div>
             <div class="flex items-center gap-3">
                 <div class="bg-white text-blue-800 px-4 py-1.5 rounded-full font-bold text-sm shadow flex items-center gap-1">
                     <span id="userCoins" class="text-lg">0</span> <i class="fas fa-coins text-yellow-500"></i>
                 </div>
-                <button onclick="toggleMenu()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-blue-700 transition">
+                <button onclick="toggleMenu()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-blue-700">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
@@ -78,14 +74,15 @@
         <div id="menuModal" class="fixed inset-0 bg-black/50 hidden z-[80]" onclick="toggleMenu()">
             <div class="absolute right-0 top-0 h-full bg-white w-72 shadow-xl overflow-y-auto fade-in" onclick="event.stopPropagation()">
                 <div class="bg-blue-600 p-6 text-white mb-2">
-                    <h2 class="text-xl font-bold" id="menuName">User Name</h2>
-                    <p class="text-xs opacity-90 mt-1" id="menuEmail">user@email.com</p>
+                    <h2 class="text-xl font-bold">Menu</h2>
+                    <p class="text-xs opacity-80" id="menuEmail">user@email.com</p>
+                    <p class="text-xs opacity-80" id="menuPhone">017xxxx</p>
                 </div>
                 <div class="p-2 space-y-1">
-                    <button onclick="switchTab('buyPointsScreen'); toggleMenu();" class="menu-btn"><i class="fas fa-shopping-cart text-green-500"></i> Buy Points <span class="bg-red-500 text-white text-[10px] px-2 rounded ml-auto">HOT</span></button>
-                    <button onclick="openProfileModal()" class="menu-btn"><i class="fas fa-user-circle text-blue-500"></i> My Profile</button>
-                    <a href="https://t.me/SkillEarnBd" target="_blank" class="menu-btn block"><i class="fab fa-telegram text-blue-400"></i> Join Telegram</a>
-                    <button onclick="openInfo('about')" class="menu-btn"><i class="fas fa-info-circle text-gray-500"></i> About & Developer</button>
+                    <button onclick="alert('Profile Page Coming Soon')" class="menu-btn"><i class="fas fa-user-circle text-blue-500"></i> Profile</button>
+                    <a href="https://wa.me/966558254229" target="_blank" class="menu-btn block"><i class="fab fa-whatsapp text-green-500"></i> WhatsApp Contact</a>
+                    <button onclick="openInfo('about')" class="menu-btn"><i class="fas fa-info-circle text-gray-500"></i> About App</button>
+                    <button onclick="openInfo('privacy')" class="menu-btn"><i class="fas fa-shield-alt text-gray-500"></i> Privacy Policy</button>
                     <button onclick="shareApp()" class="menu-btn"><i class="fas fa-share-alt text-purple-500"></i> Share App</button>
                     <div class="border-t border-gray-100 my-2"></div>
                     <button onclick="logout()" class="menu-btn text-red-500 font-bold"><i class="fas fa-sign-out-alt"></i> Logout</button>
@@ -102,26 +99,13 @@
                     <p class="text-[10px] mt-2 bg-white/20 inline-block px-3 py-1 rounded">1000 Coins = 10 BDT</p>
                 </div>
 
-                <h3 class="font-bold text-gray-700 mb-3 text-sm">Join Community</h3>
-                <div class="grid grid-cols-4 gap-3 mb-6">
-                    <a href="https://t.me/SkillEarnBd" target="_blank" class="social-btn text-blue-500">
-                        <i class="fab fa-telegram text-2xl mb-1"></i> <span class="text-[10px] font-bold">Telegram</span>
-                    </a>
-                    <a href="#" class="social-btn text-blue-700"> <i class="fab fa-facebook-square text-2xl mb-1"></i> <span class="text-[10px] font-bold">Group</span>
-                    </a>
-                    <a href="#" class="social-btn text-blue-600"> <i class="fab fa-facebook text-2xl mb-1"></i> <span class="text-[10px] font-bold">Page</span>
-                    </a>
-                    <a href="#" class="social-btn text-red-600"> <i class="fab fa-youtube text-2xl mb-1"></i> <span class="text-[10px] font-bold">YouTube</span>
-                    </a>
-                </div>
-
                 <h3 class="font-bold text-gray-700 mb-3 text-lg">Daily Tasks</h3>
                 <div class="grid grid-cols-2 gap-4 mb-6">
-                    <div onclick="safeAdTask('video')" class="task-card"><i class="fas fa-play-circle text-red-500 text-3xl mb-2"></i> Watch Video <span>30-70 Coins</span></div>
-                    <div onclick="safeAdTask('web')" class="task-card"><i class="fas fa-globe text-blue-500 text-3xl mb-2"></i> Visit Web <span>30-70 Coins</span></div>
-                    <div onclick="safeAdTask('install')" class="task-card col-span-2 border-green-200 bg-green-50"><i class="fab fa-android text-green-600 text-3xl mb-2"></i> Download App <span>High Reward (80-120)</span></div>
+                    <div onclick="safeAdTask('video', 50)" class="task-card"><i class="fas fa-play-circle text-red-500 text-3xl mb-2"></i> Watch Video <span>+50 Coins</span></div>
                     <div onclick="switchTab('spinScreen')" class="task-card"><i class="fas fa-dharmachakra text-purple-500 text-3xl mb-2"></i> Spin Wheel <span>Win Coins</span></div>
+                    <div onclick="switchTab('quizScreen')" class="task-card"><i class="fas fa-graduation-cap text-green-500 text-3xl mb-2"></i> Math Quiz <span>Earn Coins</span></div>
                     <div onclick="switchTab('lotteryScreen')" class="task-card border-blue-200 bg-blue-50"><i class="fas fa-ticket-alt text-blue-600 text-3xl mb-2"></i> Lottery <span>Jackpot</span></div>
+                    <div onclick="safeAdTask('daily', 100)" class="task-card col-span-2 bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200"><i class="fas fa-gift text-yellow-600 text-3xl mb-2"></i> Daily Bonus <span>+100 Coins</span></div>
                 </div>
             </div>
             <style>.task-card { background: white; padding: 20px; border-radius: 16px; border: 1px solid #e5e7eb; display: flex; flex-direction: column; align-items: center; cursor: pointer; font-weight: bold; font-size: 15px; transition: transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); } .task-card:active { transform: scale(0.98); } .task-card span { font-size: 11px; color: #6b7280; font-weight: normal; margin-top: 4px; }</style>
@@ -129,42 +113,34 @@
             <div id="lotteryScreen" class="view-screen hidden fade-in">
                 <div class="lottery-bg rounded-2xl p-6 text-center shadow-lg mb-6 relative overflow-hidden">
                     <i class="fas fa-ticket-alt absolute text-white/10 text-9xl -bottom-4 -right-4"></i>
-                    <div class="bg-white/20 inline-block px-3 py-1 rounded-full text-xs font-bold mb-2 border border-white/30 animate-pulse">
-                        <i class="fas fa-users"></i> Participants: <span id="lotteryCountDisplay">0</span>
-                    </div>
                     <h2 class="text-3xl font-bold mb-2">Weekly Jackpot</h2>
-                    <p class="text-xs opacity-90 mb-1">যত বেশি পার্টিসিপ্যান্ট তত বেশি প্রাইজ!</p>
-                    <p class="text-xs opacity-90 mb-4 text-yellow-300 font-bold">সর্বোচ্চ ১০ লক্ষ পয়েন্ট জিতার সুযোগ।</p>
+                    <p class="text-sm opacity-90 mb-4">Win big rewards every week!</p>
                     <div class="bg-white/20 backdrop-blur-sm rounded-lg p-3 inline-block mb-4">
                         <span class="text-xs uppercase font-bold tracking-wider">Ticket Price</span>
                         <h1 class="text-3xl font-bold">500 🪙</h1>
                     </div>
-                    <button onclick="joinLottery()" class="w-full bg-white text-indigo-600 py-4 rounded-xl font-bold shadow-lg hover:bg-gray-100 active:scale-95 transition text-lg">BUY TICKET NOW</button>
+                    <button onclick="joinLottery()" class="w-full bg-white text-indigo-600 py-4 rounded-xl font-bold shadow-lg hover:bg-gray-100 active:scale-95 transition text-lg">
+                        BUY TICKET NOW
+                    </button>
+                    <p class="text-[10px] mt-3 opacity-70">Participate multiple times to increase winning chance.</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border p-4">
-                    <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2 text-lg"><i class="fas fa-trophy text-yellow-500"></i> Recent Winners</h3>
-                    <div id="winnersList" class="space-y-3"><p class="text-center text-sm text-gray-400 py-4">Loading winners...</p></div>
-                </div>
-            </div>
 
-            <div id="buyPointsScreen" class="view-screen hidden fade-in">
-                <div class="bg-blue-600 p-6 rounded-b-3xl text-white mb-6 -mx-4 -mt-4">
-                    <h2 class="text-2xl font-bold">Buy Points</h2>
-                    <p class="text-sm opacity-80">Instant add to your balance</p>
+                <div class="bg-white rounded-xl shadow-sm border p-4">
+                    <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2 text-lg">
+                        <i class="fas fa-trophy text-yellow-500"></i> Recent Winners
+                    </h3>
+                    <div id="winnersList" class="space-y-3">
+                        <p class="text-center text-sm text-gray-400 py-4">Loading winners...</p>
+                    </div>
                 </div>
-                <div class="grid grid-cols-2 gap-3 mb-6">
-                    <div onclick="initBuy(10000, 100)" class="buy-card"><h3 class="text-xl font-bold text-blue-600">10,000</h3><p class="text-xs text-gray-500 mb-2">Points</p><div class="bg-blue-600 text-white py-1 rounded-full text-sm font-bold">100 TK</div></div>
-                    <div onclick="initBuy(20000, 200)" class="buy-card"><h3 class="text-xl font-bold text-blue-600">20,000</h3><p class="text-xs text-gray-500 mb-2">Points</p><div class="bg-blue-600 text-white py-1 rounded-full text-sm font-bold">200 TK</div></div>
-                    <div onclick="initBuy(50000, 500)" class="buy-card"><h3 class="text-xl font-bold text-blue-600">50,000</h3><p class="text-xs text-gray-500 mb-2">Points</p><div class="bg-blue-600 text-white py-1 rounded-full text-sm font-bold">500 TK</div></div>
-                    <div onclick="initBuy(100000, 1000)" class="buy-card border-yellow-400 bg-yellow-50"><h3 class="text-xl font-bold text-yellow-600">1 Lakh</h3><p class="text-xs text-gray-500 mb-2">Points</p><div class="bg-yellow-500 text-white py-1 rounded-full text-sm font-bold">1000 TK</div></div>
-                </div>
-                <h3 class="font-bold text-sm text-gray-600 mb-2 px-1">Purchase History</h3>
-                <div id="buyHistoryList" class="space-y-2 text-sm text-gray-500 pb-10"><p class="text-xs text-center p-2">Loading history...</p></div>
             </div>
 
             <div id="spinScreen" class="view-screen hidden fade-in flex flex-col items-center">
                 <h2 class="text-2xl font-bold text-gray-800 mb-8 mt-4">Lucky Wheel</h2>
-                <div class="wheel-box mb-10"><div class="arrow"></div><div class="wheel" id="wheel"></div></div>
+                <div class="wheel-box mb-10">
+                    <div class="arrow"></div>
+                    <div class="wheel" id="wheel"></div>
+                </div>
                 <button onclick="spinNow()" id="spinBtn" class="bg-blue-600 text-white px-12 py-4 rounded-full font-bold shadow-lg active:scale-95 text-xl">SPIN NOW</button>
             </div>
 
@@ -180,12 +156,14 @@
                     <p class="text-sm opacity-70">Redeemable Balance</p>
                     <h1 class="text-4xl font-bold mt-1">৳ <span id="wTk">0.00</span></h1>
                 </div>
+
                 <h3 class="font-bold text-sm text-gray-600 mb-2 uppercase tracking-wide">Mobile Recharge</h3>
                 <div class="grid grid-cols-3 gap-3 mb-6">
                     <button onclick="initRedeem('Recharge', 20)" class="redeem-btn">20 TK</button>
                     <button onclick="initRedeem('Recharge', 50)" class="redeem-btn">50 TK</button>
                     <button onclick="initRedeem('Recharge', 100)" class="redeem-btn">100 TK</button>
                 </div>
+
                 <h3 class="font-bold text-sm text-gray-600 mb-2 uppercase tracking-wide">bKash Personal</h3>
                 <div class="grid grid-cols-3 gap-3 mb-8">
                     <button onclick="initRedeem('bKash', 200)" class="redeem-btn border-pink-200 text-pink-600 hover:bg-pink-50">200 TK</button>
@@ -193,82 +171,47 @@
                     <button onclick="initRedeem('bKash', 1000)" class="redeem-btn border-pink-200 text-pink-600 hover:bg-pink-50">1k TK</button>
                 </div>
                 <style>.redeem-btn { padding: 15px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; font-weight: bold; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); } .redeem-btn:active{ transform: scale(0.95); }</style>
+
                 <h3 class="font-bold text-sm text-gray-600 mb-2">Redeem History</h3>
-                <div id="historyList" class="space-y-2 text-sm text-gray-500 pb-10"><p class="text-xs text-center p-2">Loading history...</p></div>
+                <div id="historyList" class="space-y-2 text-sm text-gray-500 pb-10">
+                    <p class="text-xs text-center p-2">Loading history...</p>
+                </div>
             </div>
         </main>
 
         <nav class="fixed bottom-0 w-full bg-white border-t h-20 px-6 flex justify-between items-center text-gray-400 z-40 shadow-[0_-5px_10px_rgba(0,0,0,0.05)]">
-            <button onclick="switchTab('homeScreen')" class="nav-item text-blue-600 flex flex-col items-center gap-1" id="btn-homeScreen"><i class="fas fa-home text-2xl"></i> <span class="text-[10px] font-bold">Home</span></button>
-            <button onclick="switchTab('lotteryScreen')" class="nav-item flex flex-col items-center gap-1" id="btn-lotteryScreen"><i class="fas fa-ticket-alt text-2xl"></i> <span class="text-[10px] font-bold">Lottery</span></button>
-            <button onclick="switchTab('spinScreen')" class="nav-item flex flex-col items-center gap-1" id="btn-spinScreen"><i class="fas fa-gamepad text-2xl"></i> <span class="text-[10px] font-bold">Spin</span></button>
-            <button onclick="switchTab('walletScreen')" class="nav-item flex flex-col items-center gap-1" id="btn-walletScreen"><i class="fas fa-wallet text-2xl"></i> <span class="text-[10px] font-bold">Wallet</span></button>
+            <button onclick="switchTab('homeScreen')" class="nav-item text-blue-600 flex flex-col items-center gap-1" id="btn-homeScreen">
+                <i class="fas fa-home text-2xl"></i> <span class="text-[10px] font-bold">Home</span>
+            </button>
+            <button onclick="switchTab('lotteryScreen')" class="nav-item flex flex-col items-center gap-1" id="btn-lotteryScreen">
+                <i class="fas fa-ticket-alt text-2xl"></i> <span class="text-[10px] font-bold">Lottery</span>
+            </button>
+            <button onclick="switchTab('spinScreen')" class="nav-item flex flex-col items-center gap-1" id="btn-spinScreen">
+                <i class="fas fa-gamepad text-2xl"></i> <span class="text-[10px] font-bold">Spin</span>
+            </button>
+            <button onclick="switchTab('walletScreen')" class="nav-item flex flex-col items-center gap-1" id="btn-walletScreen">
+                <i class="fas fa-wallet text-2xl"></i> <span class="text-[10px] font-bold">Wallet</span>
+            </button>
         </nav>
-    </div>
-
-    <div id="profileModal" class="fixed inset-0 bg-black/80 z-[95] hidden flex-col items-center justify-center p-6">
-        <div class="bg-white w-full max-w-sm rounded-2xl p-6 relative animate-[fadeIn_0.2s_ease-out]">
-            <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-500 text-2xl">&times;</button>
-            <div class="text-center mb-6">
-                <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 text-blue-600 text-3xl">
-                    <i class="fas fa-user"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800" id="profName">User Name</h2>
-                <div class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full inline-block font-bold mt-1">Verified User</div>
-            </div>
-            <div class="space-y-4">
-                <div class="bg-gray-50 p-3 rounded-lg border">
-                    <p class="text-xs text-gray-400 font-bold uppercase">Phone Number</p>
-                    <p class="text-base font-bold text-gray-800" id="profPhone">017XXXXXXXX</p>
-                </div>
-                <div class="bg-gray-50 p-3 rounded-lg border">
-                    <p class="text-xs text-gray-400 font-bold uppercase">Email Address</p>
-                    <p class="text-base font-bold text-gray-800 break-all" id="profEmail">example@mail.com</p>
-                </div>
-            </div>
-            <button onclick="closeProfileModal()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold mt-6">Close Profile</button>
-        </div>
-    </div>
-
-    <div id="buyModal" class="fixed inset-0 bg-black/80 z-[100] hidden flex-col items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-2xl p-6 relative">
-            <button onclick="closeBuyModal()" class="absolute top-4 right-4 text-gray-500 text-xl">&times;</button>
-            <h3 class="text-xl font-bold text-gray-800 mb-1">Confirm Purchase</h3>
-            <p class="text-sm text-gray-500 mb-6">Send money to add points instantly.</p>
-            <div class="bg-blue-50 p-4 rounded-xl mb-6 text-center border border-blue-100">
-                <p class="text-xs text-gray-500 uppercase font-bold">bKash Personal</p>
-                <h2 class="text-2xl font-bold text-blue-600 select-all my-1">01838818827</h2>
-                <p class="text-xs text-gray-400">Copy the number and Send Money</p>
-            </div>
-            <div class="mb-6">
-                <div class="flex justify-between text-sm font-bold mb-2"><span>Package:</span><span id="buyPkgPoints">0 Points</span></div>
-                <div class="flex justify-between text-sm font-bold text-blue-600 mb-4"><span>Price:</span><span id="buyPkgPrice">0 TK</span></div>
-                <label class="text-xs font-bold text-gray-600 block mb-1">Sender Number (Last 4 digits)</label>
-                <input type="number" id="senderPin" placeholder="Ex: 1234" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500 font-bold text-center tracking-widest">
-            </div>
-            <button onclick="submitBuyRequest()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold shadow-lg">VERIFY & SUBMIT</button>
-        </div>
     </div>
 
     <div id="infoModal" class="fixed inset-0 bg-white hidden flex-col p-6 overflow-y-auto z-[90]">
         <button onclick="closeInfo()" class="absolute top-4 right-4 text-3xl text-gray-500">&times;</button>
-        <h2 id="infoTitle" class="text-3xl font-bold text-blue-600 mb-6">About App</h2>
-        <div id="infoContent" class="text-base text-gray-600 space-y-6 leading-relaxed">
-            </div>
+        <h2 id="infoTitle" class="text-3xl font-bold text-blue-600 mb-4">Title</h2>
+        <div id="infoContent" class="text-base text-gray-600 space-y-3 leading-relaxed"></div>
     </div>
 
     <div id="adOverlay" class="fixed inset-0 bg-black/95 z-[100] hidden flex-col items-center justify-center text-white p-6 text-center backdrop-blur-sm">
         <div id="adLoader" class="flex flex-col items-center">
             <div class="loader mb-4 border-t-white"></div>
-            <h3 class="text-xl font-bold">Verifying Ad...</h3>
+            <h3 class="text-xl font-bold">Verifying Advertisement...</h3>
         </div>
 
         <div id="adContent" class="hidden flex-col items-center w-full">
             <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6 text-3xl animate-pulse"><i class="fas fa-clock"></i></div>
-            <h2 class="text-3xl font-bold mb-2">Watching Ad</h2>
-            <p class="text-gray-300 text-base mb-8">Wait <span id="adTimer" class="font-bold text-yellow-400 text-3xl">10</span> seconds to collect reward.</p>
-            
-            <button id="claimBtn" class="hidden w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold text-xl animate-bounce shadow-lg ring-4 ring-green-300/50">
+            <h2 class="text-3xl font-bold mb-2">Ad Watched</h2>
+            <p class="text-gray-300 text-base mb-8">Wait <span id="adTimer" class="font-bold text-white text-2xl">10</span> seconds to collect reward.</p>
+            <button id="claimBtn" class="hidden w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold text-xl animate-bounce shadow-lg">
                 COLLECT REWARD
             </button>
         </div>
@@ -290,13 +233,13 @@
         };
         
         const AD_LINK = "https://otieu.com/4/10582562";
+        
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        
         let currentUser = null;
-        let userData = {};
-        let selectedPackage = { points: 0, price: 0 };
+        let userName = "User";
+        let userPhone = "017xxxx";
 
         // AUTH
         onAuthStateChanged(auth, async (user) => {
@@ -308,31 +251,20 @@
                 
                 onSnapshot(doc(db, "users", user.uid), (d) => {
                     if(d.exists()) {
-                        userData = d.data();
-                        const c = userData.coins || 0;
-                        const name = userData.name || "User";
-                        
-                        document.getElementById('headerName').innerText = name;
-                        document.getElementById('menuName').innerText = name;
-                        document.getElementById('menuEmail').innerText = user.email;
-                        document.getElementById('userCoins').innerText = c;
-                        document.getElementById('balanceTk').innerText = (c/100).toFixed(2);
-                        document.getElementById('wTk').innerText = (c/100).toFixed(2);
-                        
-                        // Profile Data (No UID)
-                        document.getElementById('profName').innerText = name;
-                        document.getElementById('profPhone').innerText = userData.phone || "N/A";
-                        document.getElementById('profEmail').innerText = user.email;
+                        const data = d.data();
+                        userName = data.name || "User";
+                        userPhone = data.phone || "N/A";
+                        document.getElementById('userName').innerText = userName;
+                        document.getElementById('menuEmail').innerText = user.email || "Guest";
+                        document.getElementById('menuPhone').innerText = userPhone;
+                        document.getElementById('userCoins').innerText = data.coins || 0;
+                        document.getElementById('balanceTk').innerText = ((data.coins || 0)/100).toFixed(2);
+                        document.getElementById('wTk').innerText = ((data.coins || 0)/100).toFixed(2);
                     }
                 });
                 
                 loadHistory(); 
-                loadWinners();
-                loadBuyHistory();
-                onSnapshot(collection(db, "lottery_participants"), (snap) => {
-                    document.getElementById('lotteryCountDisplay').innerText = snap.size;
-                });
-
+                loadWinners(); 
             } else {
                 currentUser = null;
                 document.getElementById('loadingScreen').style.display = 'none';
@@ -341,14 +273,18 @@
             }
         });
 
-        // --- AD SYSTEM (RELIABLE CLAIM BUTTON) ---
-        window.safeAdTask = (taskType) => {
+        // AD SYSTEM (REPAIRED)
+        window.safeAdTask = (type, reward) => {
+            // 1. Open Link
             const newWindow = window.open(AD_LINK, '_blank');
+
+            // 2. Check Popup Block
             if(!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                alert("Please allow popups to earn points!");
+                alert("Ad could not load! Please allow popups or try again later.");
                 return;
             }
 
+            // 3. Show Overlay
             const overlay = document.getElementById('adOverlay');
             const loader = document.getElementById('adLoader');
             const content = document.getElementById('adContent');
@@ -361,7 +297,7 @@
             content.classList.add('hidden');
             claimBtn.classList.add('hidden');
 
-            // Show Timer after slight delay
+            // 4. Timer Logic
             setTimeout(() => {
                 loader.classList.add('hidden');
                 content.classList.remove('hidden');
@@ -373,38 +309,25 @@
                 const interval = setInterval(() => {
                     timeLeft--;
                     timerDisplay.innerText = timeLeft;
-                    
                     if(timeLeft <= 0) {
                         clearInterval(interval);
-                        
-                        // SHOW CLAIM BUTTON
                         claimBtn.classList.remove('hidden');
                         
-                        // CLICK TO ADD POINTS (SAFE METHOD)
+                        // 5. Force Database Update on Click
                         claimBtn.onclick = () => {
                             claimBtn.innerText = "Processing...";
                             claimBtn.disabled = true;
                             
-                            let pointsToAdd = 0;
-                            if(taskType === 'install') {
-                                pointsToAdd = Math.floor(Math.random() * (120 - 80 + 1)) + 80; // 80-120
-                            } else {
-                                pointsToAdd = Math.floor(Math.random() * (70 - 30 + 1)) + 30; // 30-70
-                            }
-
-                            updateDoc(doc(db, "users", currentUser.uid), { coins: increment(pointsToAdd) })
+                            updateDoc(doc(db, "users", currentUser.uid), { coins: increment(reward) })
                             .then(() => {
-                                alert(`Success! +${pointsToAdd} Points Added.`);
                                 overlay.classList.add('hidden');
                                 overlay.classList.remove('flex');
-                                // Reset button for next time
-                                claimBtn.innerText = "COLLECT REWARD";
-                                claimBtn.disabled = false;
+                                alert(`Success! ${reward} coins added.`);
                             })
-                            .catch(err => {
-                                alert("Error adding points. Try again.");
-                                claimBtn.innerText = "RETRY";
-                                claimBtn.disabled = false;
+                            .catch((err) => {
+                                alert("Connection Error! Try again.");
+                                overlay.classList.add('hidden');
+                                overlay.classList.remove('flex');
                             });
                         };
                     }
@@ -412,187 +335,177 @@
             }, 1000);
         };
 
-        // --- AUTH ---
-        window.handleAuth = (type) => {
-            const email = document.getElementById('authEmail').value;
-            const pass = document.getElementById('authPass').value;
-            const btn = type === 'login' ? document.getElementById('btnLogin') : document.getElementById('btnSignup');
-            const errorMsg = document.getElementById('authError');
-
-            if(!email || !pass) { errorMsg.innerText = "Please fill all fields."; return; }
-            
-            btn.disabled = true;
-            btn.innerText = "Processing...";
-            errorMsg.innerText = "";
-
-            if (type === 'login') {
-                signInWithEmailAndPassword(auth, email, pass).catch(er => {
-                    errorMsg.innerText = er.message;
-                    btn.disabled = false; btn.innerText = "Login";
-                });
-            } else {
-                const name = document.getElementById('authName').value;
-                const phone = document.getElementById('authPhone').value;
-                if(!name || !phone) { errorMsg.innerText = "Name & Phone required."; btn.disabled = false; btn.innerText = "Create Account"; return; }
-
-                createUserWithEmailAndPassword(auth, email, pass).then(c => {
-                     setDoc(doc(db, "users", c.user.uid), { coins: 0, email: email, name: name, phone: phone, uid: c.user.uid });
-                }).catch(er => {
-                    errorMsg.innerText = er.message;
-                    btn.disabled = false; btn.innerText = "Create Account";
-                });
-            }
-        };
-
-        // --- ABOUT APP TEXT ---
-        window.openInfo = (p) => {
-            toggleMenu();
-            const m = document.getElementById('infoModal');
-            m.style.display = 'flex';
-            if(p === 'about') {
-                document.getElementById('infoTitle').innerText = "About & Developer";
-                document.getElementById('infoContent').innerHTML = `
-                    <div class="bg-blue-50 p-4 rounded-xl mb-4 border border-blue-100">
-                        <p class="font-bold text-gray-800 mb-2">SkillPlay BD</p>
-                        <p class="text-sm">SkillPlay BD is the ultimate rewards app in Bangladesh. Earn coins by watching videos, visiting websites, and participating in weekly lotteries. Withdraw your earnings easily via bKash and Mobile Recharge.</p>
-                    </div>
-                    
-                    <h3 class="font-bold text-gray-800 text-lg mb-3">Meet the Developer</h3>
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-16 h-16 bg-gray-200 rounded-full overflow-hidden flex items-center justify-center text-2xl text-gray-500">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-xl text-blue-600">Nazrul Islam (Rana)</h4>
-                            <p class="text-sm text-gray-500 font-bold">Web Designer & Blogger</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-3">
-                        <a href="#" class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
-                            <i class="fas fa-globe text-blue-500"></i> <span class="text-sm font-bold">Website</span>
-                        </a>
-                        <a href="#" class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
-                            <i class="fab fa-facebook text-blue-600"></i> <span class="text-sm font-bold">Facebook Page</span>
-                        </a>
-                        <a href="#" class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
-                            <i class="fab fa-youtube text-red-600"></i> <span class="text-sm font-bold">YouTube</span>
-                        </a>
-                    </div>
-                `;
-            }
-        };
-
-        // --- UTILS (Same as before) ---
-        window.logout = () => signOut(auth);
-        window.toggleMenu = () => document.getElementById('menuModal').classList.toggle('hidden');
-        window.closeBuyModal = () => { document.getElementById('buyModal').classList.add('hidden'); document.getElementById('buyModal').classList.remove('flex'); };
-        window.openProfileModal = () => { document.getElementById('profileModal').classList.remove('hidden'); document.getElementById('profileModal').classList.add('flex'); toggleMenu(); };
-        window.closeProfileModal = () => { document.getElementById('profileModal').classList.add('hidden'); document.getElementById('profileModal').classList.remove('flex'); };
-        window.shareApp = () => window.open(`https://wa.me/?text=${encodeURIComponent('Join SkillPlay BD!')}`, '_blank');
-        window.closeInfo = () => document.getElementById('infoModal').style.display = 'none';
-        
-        window.switchTab = (id) => {
-            document.querySelectorAll('.view-screen').forEach(el => el.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-            document.querySelectorAll('.nav-item').forEach(el => el.className = "nav-item flex flex-col items-center gap-1 text-gray-400");
-            const btn = document.getElementById('btn-'+id); if(btn) btn.className = "nav-item flex flex-col items-center gap-1 text-blue-600";
-        };
-
-        // --- BUY & REDEEM LOGIC (UNCHANGED) ---
-        window.initBuy = (points, price) => {
-            selectedPackage = { points, price };
-            document.getElementById('buyPkgPoints').innerText = points.toLocaleString() + " Points";
-            document.getElementById('buyPkgPrice').innerText = price + " TK";
-            document.getElementById('senderPin').value = "";
-            document.getElementById('buyModal').classList.remove('hidden');
-            document.getElementById('buyModal').classList.add('flex');
-        };
-        window.submitBuyRequest = async () => {
-            const pin = document.getElementById('senderPin').value;
-            if(!pin || pin.length < 4) return alert("Invalid PIN.");
-            if(confirm(`Confirm ${selectedPackage.points} Pts for ${selectedPackage.price} TK?`)) {
-                try {
-                    await addDoc(collection(db, "buy_requests"), {
-                        uid: currentUser.uid, name: userData.name, email: currentUser.email, phone: userData.phone,
-                        amountPoints: selectedPackage.points, priceTk: selectedPackage.price, senderPin: pin,
-                        status: "Pending", date: serverTimestamp(), dateStr: new Date().toLocaleDateString()
-                    });
-                    alert("Submitted!"); closeBuyModal();
-                } catch(e) { alert(e.message); }
-            }
-        };
-        function loadBuyHistory() {
+        // HISTORY (FIXED - Removed OrderBy to avoid Index Error)
+        function loadHistory() {
             if(!currentUser) return;
-            onSnapshot(query(collection(db, "buy_requests"), where("uid", "==", currentUser.uid)), (sn) => {
-                const h = document.getElementById('buyHistoryList'); h.innerHTML = "";
-                let docs = []; sn.forEach(d => docs.push(d.data())); docs.sort((a,b)=> (b.date?.seconds||0)-(a.date?.seconds||0));
-                docs.forEach(d => {
-                    const col = d.status==='Approved'?'text-green-500':(d.status==='Rejected'?'text-red-500':'text-yellow-500');
-                    h.innerHTML += `<div class="flex justify-between bg-white p-3 rounded border mb-1"><div><p class="font-bold text-blue-600 text-xs">${d.amountPoints} Pts</p><p class="text-[10px] text-gray-400">PIN: ${d.senderPin}</p></div><span class="${col} font-bold text-xs">${d.status}</span></div>`;
+            // Only 'where', no 'orderBy' in query
+            const q = query(collection(db, "withdraws"), where("uid", "==", currentUser.uid));
+            
+            onSnapshot(q, (sn) => {
+                const h = document.getElementById('historyList');
+                h.innerHTML = "";
+                if(sn.empty) {
+                    h.innerHTML = "<p class='text-xs text-center p-2'>No history found.</p>";
+                    return;
+                }
+
+                // Sort manually in JS
+                let docs = [];
+                sn.forEach(d => docs.push(d.data()));
+                docs.sort((a, b) => (b.date?.seconds || 0) - (a.date?.seconds || 0));
+
+                docs.forEach(data => {
+                    const col = data.status === 'Paid' ? 'text-green-500' : (data.status === 'Rejected' ? 'text-red-500' : 'text-yellow-500');
+                    h.innerHTML += `<div class="flex justify-between bg-white p-3 rounded shadow-sm border border-gray-100"><span>${data.method} - ${data.amountTk}Tk</span><span class="${col} font-bold text-xs">${data.status}</span></div>`;
                 });
             });
         }
+
+        // LOTTERY
+        window.joinLottery = async () => {
+            if(!currentUser) return;
+            const cost = 500;
+            const currentCoins = parseInt(document.getElementById('userCoins').innerText);
+            
+            if(currentCoins < cost) return alert("Need 500 coins!");
+            
+            if(confirm("Buy Lottery Ticket for 500 coins?")) {
+                try {
+                    await updateDoc(doc(db, "users", currentUser.uid), { coins: increment(-cost) });
+                    await addDoc(collection(db, "lottery_participants"), {
+                        uid: currentUser.uid,
+                        name: userName,
+                        email: currentUser.email,
+                        phone: userPhone, 
+                        date: serverTimestamp()
+                    });
+                    alert("Ticket Purchased!");
+                } catch(e) { alert("Error: " + e.message); }
+            }
+        };
+
+        function loadWinners() {
+            const q = query(collection(db, "lottery_winners"), orderBy("date", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('winnersList');
+                list.innerHTML = "";
+                if(snapshot.empty) {
+                    list.innerHTML = "<p class='text-center text-sm text-gray-400 py-4'>No winners yet.</p>";
+                    return;
+                }
+                snapshot.forEach(d => {
+                    const w = d.data();
+                    let maskedPhone = "xxxx";
+                    if(w.phone && w.phone.length > 5) {
+                        maskedPhone = w.phone.substring(0, 3) + "***" + w.phone.slice(-2);
+                    }
+                    list.innerHTML += `
+                        <div class="flex justify-between items-center bg-gray-50 p-4 rounded-lg border-l-4 border-yellow-400 shadow-sm mb-2">
+                            <div>
+                                <p class="text-base font-bold text-gray-800">${w.name}</p>
+                                <p class="text-xs text-gray-500 font-mono mt-1"><i class="fas fa-phone-alt"></i> ${maskedPhone}</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">${w.dateStr}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold text-green-600">+${w.prize}</p>
+                            </div>
+                        </div>`;
+                });
+            });
+        }
+
+        // REDEEM
         window.initRedeem = async (method, tk) => {
             const coinsNeed = tk * 100;
             const cur = parseInt(document.getElementById('userCoins').innerText);
             if(cur < coinsNeed) return alert(`Need ${coinsNeed} coins!`);
+            
             const num = prompt(`Enter ${method} Number:`);
             if(num && num.length > 9) {
-                await updateDoc(doc(db, "users", currentUser.uid), { coins: increment(-coinsNeed) });
-                await addDoc(collection(db, "withdraws"), { uid: currentUser.uid, email: currentUser.email, method, number: num, amountTk: tk, amountCoins: coinsNeed, status: "Pending", date: serverTimestamp(), dateStr: new Date().toLocaleDateString() });
-                alert("Request Successful!");
-            }
-        };
-        function loadHistory() {
-            if(!currentUser) return;
-            onSnapshot(query(collection(db, "withdraws"), where("uid", "==", currentUser.uid)), (sn) => {
-                const h = document.getElementById('historyList'); h.innerHTML = "";
-                let docs = []; sn.forEach(d => docs.push(d.data())); docs.sort((a,b)=> (b.date?.seconds||0)-(a.date?.seconds||0));
-                docs.forEach(d => h.innerHTML += `<div class="flex justify-between bg-white p-3 rounded border mb-1"><span>${d.method} - ${d.amountTk}Tk</span><span class="${d.status==='Paid'?'text-green-500':'text-yellow-500'} font-bold text-xs">${d.status}</span></div>`);
-            });
-        }
-        
-        window.joinLottery = async () => {
-            if(!currentUser) return;
-            const cost = 500;
-            const cur = parseInt(document.getElementById('userCoins').innerText);
-            if(cur < cost) return alert("Need 500 coins!");
-            if(confirm("Buy Lottery Ticket for 500 coins?")) {
                 try {
-                    await updateDoc(doc(db, "users", currentUser.uid), { coins: increment(-cost) });
-                    await addDoc(collection(db, "lottery_participants"), { uid: currentUser.uid, name: userData.name, email: currentUser.email, phone: userData.phone, date: serverTimestamp() });
-                    alert("Ticket Purchased!");
-                } catch(e) { alert(e.message); }
+                    await updateDoc(doc(db, "users", currentUser.uid), { coins: increment(-coinsNeed) });
+                    await addDoc(collection(db, "withdraws"), {
+                        uid: currentUser.uid,
+                        email: currentUser.email || "Guest",
+                        method: method,
+                        number: num,
+                        amountTk: tk,
+                        amountCoins: coinsNeed,
+                        status: "Pending",
+                        date: serverTimestamp(),
+                        dateStr: new Date().toLocaleDateString()
+                    });
+                    alert("Request Successful!");
+                } catch(e) { alert("Error: " + e.message); }
             }
         };
-        function loadWinners() {
-            onSnapshot(query(collection(db, "lottery_winners"), orderBy("date", "desc")), (sn) => {
-                const l = document.getElementById('winnersList'); l.innerHTML = "";
-                sn.forEach(d => {
-                    const w = d.data();
-                    let ph = w.phone && w.phone.length > 5 ? w.phone.substring(0,3)+"***"+w.phone.slice(-2) : "xxxx";
-                    l.innerHTML += `<div class="flex justify-between items-center bg-gray-50 p-3 rounded border-l-4 border-yellow-400 mb-2"><div><p class="font-bold text-sm">${w.name}</p><p class="text-[10px] text-gray-500">${ph}</p></div><p class="text-green-600 font-bold">+${w.prize}</p></div>`;
-                });
-            });
-        }
+
+        // SPIN
         window.spinNow = () => {
-            const btn = document.getElementById('spinBtn'); const wheel = document.getElementById('wheel');
-            btn.disabled = true; wheel.style.transform = `rotate(${3000+Math.random()*3000}deg)`;
-            setTimeout(() => { window.safeAdTask('spin'); btn.disabled = false; wheel.style.transform = 'rotate(0deg)'; }, 4000);
+            const btn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            btn.disabled = true;
+            wheel.style.transform = `rotate(${3000 + Math.random() * 3000}deg)`;
+            setTimeout(() => {
+                window.safeAdTask('spin', 30);
+                btn.disabled = false;
+                wheel.style.transform = 'rotate(0deg)';
+            }, 4000);
         };
-        let qIdx = 0; const qs = [{q: "Capital of BD?", a:["Dhaka", "Sylhet"], c:0}, {q: "5+5=?", a:["10", "12"], c:0}];
+
+        // QUIZ
+        const qs = [{q: "Capital of Bangladesh?", a: ["Dhaka", "Chittagong", "Khulna"], c: 0}, {q: "5 + 5 = ?", a: ["8", "10", "12"], c: 1}, {q: "Cricket World Cup 2023 Winner?", a: ["India", "Australia", "England"], c: 1}];
+        let qIdx = 0;
         function loadQuiz() {
-            if(qIdx>=qs.length) { document.getElementById('qText').innerText="Done!"; document.getElementById('qOptions').innerHTML=""; return; }
-            const q = qs[qIdx]; document.getElementById('qText').innerText=q.q; document.getElementById('qOptions').innerHTML="";
-            q.a.forEach((opt,i)=>{
-                const b = document.createElement('button'); b.className="w-full p-4 border rounded-xl hover:bg-blue-50 text-left"; b.innerText=opt;
-                b.onclick=()=>{ if(i===q.c) { alert("Correct!"); updateDoc(doc(db,"users",currentUser.uid),{coins:increment(10)}); qIdx++; loadQuiz(); } else { alert("Wrong!"); window.safeAdTask('wrong'); } };
-                document.getElementById('qOptions').appendChild(b);
+            if(qIdx >= qs.length) { document.getElementById('qText').innerText = "Done!"; document.getElementById('qOptions').innerHTML = ""; return; }
+            const q = qs[qIdx];
+            document.getElementById('qText').innerText = q.q;
+            const div = document.getElementById('qOptions');
+            div.innerHTML = "";
+            q.a.forEach((opt, i) => {
+                const b = document.createElement('button');
+                b.className = "w-full p-4 border rounded-xl text-left hover:bg-blue-50 font-medium text-gray-700 transition";
+                b.innerText = opt;
+                b.onclick = () => {
+                    if(i === q.c) { alert("Correct!"); updateDoc(doc(db, "users", currentUser.uid), { coins: increment(10) }); qIdx++; loadQuiz(); }
+                    else { alert("Wrong!"); window.safeAdTask('wrong', 5); }
+                };
+                div.appendChild(b);
             });
         }
         loadQuiz();
+
+        // UTILS
+        window.handleAuth = (type) => {
+            const e = document.getElementById('authEmail').value;
+            const p = document.getElementById('authPass').value;
+            const n = document.getElementById('authName').value;
+            const ph = document.getElementById('authPhone').value;
+
+            if(!e || !p) return alert("Enter email and password");
+            
+            if (type === 'login') {
+                signInWithEmailAndPassword(auth, e, p).catch(er => document.getElementById('authError').innerText = er.message);
+            } else {
+                if(!n || !ph) return alert("Enter Name and Phone Number");
+                createUserWithEmailAndPassword(auth, e, p).then(c => {
+                     setDoc(doc(db, "users", c.user.uid), { coins: 0, email: e, name: n, phone: ph, uid: c.user.uid });
+                }).catch(er => document.getElementById('authError').innerText = er.message);
+            }
+        };
+        
+        window.logout = () => signOut(auth);
+        window.toggleMenu = () => document.getElementById('menuModal').classList.toggle('hidden');
+        window.shareApp = () => window.open(`https://wa.me/?text=${encodeURIComponent('Join SkillPlay BD!')}`, '_blank');
+        window.switchTab = (id) => {
+            document.querySelectorAll('.view-screen').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(el => el.className = "nav-item flex flex-col items-center gap-1 text-gray-400");
+            document.getElementById('btn-'+id).className = "nav-item flex flex-col items-center gap-1 text-blue-600";
+        };
+        window.openInfo = (p) => { toggleMenu(); document.getElementById('infoModal').style.display = 'flex'; if(p==='about') {document.getElementById('infoTitle').innerText="About";document.getElementById('infoContent').innerText="Best Earning App."} };
+        window.closeInfo = () => document.getElementById('infoModal').style.display = 'none';
+        window.closeAdOverlay = () => document.getElementById('adOverlay').classList.add('hidden');
     </script>
 </body>
-
 </html>
